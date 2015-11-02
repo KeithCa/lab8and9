@@ -55,8 +55,8 @@ def images_index():
     
     Complete the code below generating a valid response. 
     """
-    
-    resp = ''
+    output = docker('images')
+    resp = json.dumps(docker_images_to_array(output))
     return Response(response=resp, mimetype="application/json")
 
 @app.route('/containers/<id>', methods=['GET'])
