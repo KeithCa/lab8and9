@@ -77,7 +77,7 @@ def containers_log(id):
     Dump specific container logs
 
     """
-    output = docker('logs')
+    output = docker('logs', '-f')
     resp = json.dumps(docker_logs_to_object('0506d303e1e6', output))
     return Response(response=resp, mimetype="application/json")
 
