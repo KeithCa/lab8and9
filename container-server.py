@@ -41,8 +41,11 @@ def containers_index():
     curl -s -X GET -H 'Accept: application/json' http://localhost:8080/containers?state=running | python -mjson.tool
 
     """
-
-    resp = ''
+    if request.args.get('state') == 'running':
+		output = docker('ps')
+    else:
+		output = docker('ps', '-a')
+    resp = json.dumps(docker_ps_to_array(output))
     return Response(response=resp, mimetype="application/json")
 
 @app.route('/images', methods=['GET'])
@@ -207,7 +210,6 @@ def docker_ps_to_array(output):
         each['ports'] = c[-2]
         all.append(each)
     return all
-
 #
 # Parses the output of a Docker logs command to a python Dictionary
 # (Key Value Pair object)
