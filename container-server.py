@@ -78,7 +78,7 @@ def containers_log(id):
 
     """
     output = docker('logs 0506d303e1e6')
-    resp = json.dumps(docker_images_to_array(output))
+    resp = json.dumps(docker_logs_to_object(output))
     return Response(response=resp, mimetype="application/json")
 
 
