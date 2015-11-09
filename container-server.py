@@ -68,7 +68,7 @@ def containers_show(id):
     """
 
     output = docker('inspect', id)
-    resp = json.dumps(docker_ps_to_array(output))
+    resp = json.dumps(docker_logs_to_object(id, output))
 
     return Response(response=resp, mimetype="application/json")
 
@@ -78,7 +78,7 @@ def containers_log(id):
     Dump specific container logs
     curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/0506d303e1e6/logs | python -mjson.tool
     """
-    output = docker('logs', '-f')
+    output = docker('logs', '-f', id)
     resp = json.dumps(docker_logs_to_object(id, output))
     return Response(response=resp, mimetype="application/json")
 
