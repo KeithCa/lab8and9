@@ -51,7 +51,7 @@ def containers_index():
 @app.route('/images', methods=['GET'])
 def images_index():
     """
-    List all images 
+    curl -s -X GET -H 'Accept: application/json' http://localhost:8080/images | python -mjson.tool
     
     Complete the code below generating a valid response. 
     """
@@ -62,6 +62,7 @@ def images_index():
 @app.route('/containers/<id>', methods=['GET'])
 def containers_show(id):
     """
+    curl -s -X GET -H 'Accept: application/json' http://localhost:8080/containers/0506d303e1e6 | python -mjson.tool
     Inspect specific container
 
     """
@@ -75,7 +76,7 @@ def containers_show(id):
 def containers_log(id):
     """
     Dump specific container logs
-
+    curl -s -X GET -H 'Accept: application/json' http://localhost:8080/containers/0506d303e1e6/logs | python -mjson.tool
     """
     output = docker('logs', '-f')
     resp = json.dumps(docker_logs_to_object(id, output))
@@ -85,7 +86,7 @@ def containers_log(id):
 @app.route('/images/<id>', methods=['DELETE'])
 def images_remove(id):
     """
-    Delete a specific image
+    curl -s -X DELETE -H 'Accept: application/json' http://localhost:8080/containers/images/d311f3252477 | python -mjson.tool
     """
     docker ('rmi', id)
     resp = '{"id": "%s"}' % id
