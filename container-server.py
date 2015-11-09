@@ -66,7 +66,7 @@ def containers_show(id):
 
     """
 
-    output = docker('inspect 0506d303e1e6')
+    output = docker('inspect')
     resp = json.dumps(docker_ps_to_array(output))
 
     return Response(response=resp, mimetype="application/json")
