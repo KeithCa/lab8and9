@@ -118,7 +118,7 @@ def images_remove_all():
     Force remove all images - dangrous!
 
     """
-    docker ('rmi $(docker images -q))
+    docker ('rmi $(docker images -q)')
     resp = '{"id": "%s"}' % id
     return Response(response=resp, mimetype="application/json")
 
