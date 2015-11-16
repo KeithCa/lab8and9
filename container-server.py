@@ -108,7 +108,7 @@ def containers_remove_all():
     curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers | python -mjson.tool
 
     """
-    docker ('docker rm $(docker ps -a -q)')
+    docker ('rm $(docker ps -a -q)')
     resp = '{"id": "%s"}' % id
     return Response(response=resp, mimetype="application/json")
 
@@ -118,7 +118,7 @@ def images_remove_all():
     curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/images
 
     """
-    docker ('rmi $(docker images -q)')
+    docker ('rmi $(images -q)')
     resp = '{"id": "%s"}' % id
     return Response(response=resp, mimetype="application/json")
 
