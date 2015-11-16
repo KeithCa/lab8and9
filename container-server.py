@@ -109,7 +109,6 @@ def containers_remove_all():
 
     """
     docker ('rm $(docker ps -a -q)')
-    resp = '{"id": "%s"}' % id
     return Response(response=resp, mimetype="application/json")
 
 @app.route('/images', methods=['DELETE'])
@@ -119,7 +118,6 @@ def images_remove_all():
 
     """
     docker ('rmi $(images -q)')
-    resp = '{"id": "%s"}' % id
     return Response(response=resp, mimetype="application/json")
 
 
