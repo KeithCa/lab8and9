@@ -86,7 +86,7 @@ def containers_log(id):
 @app.route('/images/<id>', methods=['DELETE'])
 def images_remove(id):
     """
-    curl -s -X DELETE -H 'Accept: application/json' http://localhost:8080/images/d311f3252477 | python -mjson.tool
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/images/d311f3252477 | python -mjson.tool
     """
     docker ('rmi', id)
     resp = '{"id": "%s"}' % id
@@ -96,7 +96,7 @@ def images_remove(id):
 def containers_remove(id):
     """
     Delete a specific container - must be already stopped/killed
-    curl -s -X DELETE -H 'Accept: application/json' http://localhost:8080/containers/d311f3252477 | python -mjson.tool
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers/d311f3252477 | python -mjson.tool
     """
     docker ('rm', id)
     resp = '{"id": "%s"}' % id
@@ -105,7 +105,7 @@ def containers_remove(id):
 @app.route('/containers', methods=['DELETE'])
 def containers_remove_all():
     """
-    Force remove all containers - dangrous!
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers | python -mjson.tool
 
     """
     docker ('docker rm $(docker ps -a -q)')
@@ -115,7 +115,7 @@ def containers_remove_all():
 @app.route('/images', methods=['DELETE'])
 def images_remove_all():
     """
-    Force remove all images - dangrous!
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/images
 
     """
     docker ('rmi $(docker images -q)')
