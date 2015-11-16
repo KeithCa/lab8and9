@@ -37,8 +37,8 @@ def containers_index():
     """
     List all containers
  
-    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers | python -mjson.tool
-    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers?state=running | python -mjson.tool
+    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers | python -mjson.tool
+    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers?state=running | python -mjson.tool
 
     """
     if request.args.get('state') == 'running':
@@ -51,7 +51,7 @@ def containers_index():
 @app.route('/images', methods=['GET'])
 def images_index():
     """
-    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/images | python -mjson.tool
+    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/images | python -mjson.tool
     
     Complete the code below generating a valid response. 
     """
@@ -62,7 +62,7 @@ def images_index():
 @app.route('/containers/<id>', methods=['GET'])
 def containers_show(id):
     """
-    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers/0506d303e1e6 | python -mjson.tool
+    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers/0506d303e1e6 | python -mjson.tool
     Inspect specific container
 
     """
@@ -76,7 +76,7 @@ def containers_show(id):
 def containers_log(id):
     """
     Dump specific container logs
-    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/0506d303e1e6/logs | python -mjson.tool
+    curl -s -X GET -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/0506d303e1e6/logs | python -mjson.tool
     """
     output = docker('logs', '-f', id)
     resp = json.dumps(docker_logs_to_object(id, output))
@@ -86,7 +86,7 @@ def containers_log(id):
 @app.route('/images/<id>', methods=['DELETE'])
 def images_remove(id):
     """
-    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/images/d311f3252477 | python -mjson.tool
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/images/d311f3252477 | python -mjson.tool
     """
     docker ('rmi', id)
     resp = '{"id": "%s"}' % id
@@ -96,7 +96,7 @@ def images_remove(id):
 def containers_remove(id):
     """
     Delete a specific container - must be already stopped/killed
-    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers/d311f3252477 | python -mjson.tool
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers/d311f3252477 | python -mjson.tool
     """
     docker ('rm', id)
     resp = '{"id": "%s"}' % id
@@ -105,7 +105,7 @@ def containers_remove(id):
 @app.route('/containers', methods=['DELETE'])
 def containers_remove_all():
     """
-    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/containers | python -mjson.tool
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/containers | python -mjson.tool
 
     """
     docker ('docker rm $(docker ps -a -q)')
@@ -115,7 +115,7 @@ def containers_remove_all():
 @app.route('/images', methods=['DELETE'])
 def images_remove_all():
     """
-    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8080/images
+    curl -s -X DELETE -H 'Accept: application/json' http://ec2-52-19-57-212.eu-west-1.compute.amazonaws.com:8082/images
 
     """
     docker ('rmi $(docker images -q)')
